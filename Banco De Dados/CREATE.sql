@@ -21,19 +21,6 @@ CREATE TABLE noticia (
     text_noticia TEXT
 );
 
-CREATE TABLE comentario (
-    id INT AUTO_INCREMENT PRIMARY KEY,
-    conteudo TEXT NOT NULL,
-    id_usuario INT NOT NULL,
-    data_publicacao DATETIME NOT NULL,
-    id_noticia INT NOT NULL,
-    aprovado TINYINT NOT NULL DEFAULT 0,
-    FOREIGN KEY (id_usuario)
-        REFERENCES usuario (id),
-    FOREIGN KEY (id_noticia)
-        REFERENCES noticia (id)
-);
-
 CREATE TABLE insc_notificacao (
     id INT AUTO_INCREMENT PRIMARY KEY,
     id_usuario INT NOT NULL,

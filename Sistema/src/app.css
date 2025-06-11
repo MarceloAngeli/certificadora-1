@@ -1,1 +1,35 @@
-@import "tailwindcss";
+@import 'tailwindcss';
+
+html {
+  font-family: system-ui, sans-serif;
+}
+
+.font-tagesschrift {
+  font-family: 'Tagesschrift', system-ui, sans-serif;
+}
+
+.font-poppins {
+  font-family: 'Poppins', system-ui, sans-serif;
+}
+
+.link-carrossel .carrossel-hover {
+  border-radius: 10px;
+  transition: .5s ease;
+  opacity: 1;
+}
+.link-carrossel:hover .carrossel-hover {
+  opacity: 0.3;
+}
+.link-carrossel .div-card {
+  opacity: 0;
+}
+.link-carrossel:hover .div-card {
+  opacity: 1;
+}
+.cortar-linha {
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}

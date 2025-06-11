@@ -2,10 +2,10 @@
 // No props for now
 </script>
 
-<section class="px-[15%] py-10 gap-10 mt-10">
+<section class="w-full mx-auto bg-white rounded-lg p-4 sm:p-8 my-8">
   <h2 class="text-[#b91102] text-2xl mb-6 font-poppins font-semibold">Cadastre-se como voluntário</h2>
-  <div class="flex items-center">
-    <form action="/login" method="GET" class="flex flex-col w-1/2 bg-[#FFEBEC] p-4 rounded-[15px] border border-[#b91102]">
+  <div class="flex flex-col md:flex-row items-center md:items-stretch w-full">
+    <form action="/login" method="GET" class="flex flex-col w-full lg:w-1/2 bg-[#FFEBEC] p-4 rounded-[15px] border border-[#b91102] min-w-0">
       <label class="text-[#e82210]" for="nome">Nome Completo:</label>
       <input class="border border-[#b91102] rounded-[15px] p-1" type="text" id="nome" name="nome" />
       <div class="flex flex-row items-center mt-2">
@@ -32,6 +32,7 @@
         <button class="mt-2 text-base rounded-[10px] px-4 py-2 bg-[#EB685D] text-white border border-[#b91102]" type="submit">Quero Ajudar !</button>
       </div>
     </form>
-    <img class="" style="width:50%;height:auto;" src="/imagens/obrigado.png" alt="" />
+    <div class="none lg:block flex-shrink-0 flex-grow" aria-hidden="true"></div>
+    <img class="hidden lg:block w-full lg:w-1/2 max-w-xs md:max-w-sm lg:max-w-md h-auto" src="/imagens/obrigado.png" alt="" />
   </div>
 </section>

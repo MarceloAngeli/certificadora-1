@@ -1,30 +1,25 @@
-CREATE DATABASE IF NOT EXISTS plataforma_noticia;
-USE plataforma_noticia;
+CREATE DATABASE IF NOT EXISTS BonsFluidos;
 
-CREATE TABLE usuario (
-    id INT AUTO_INCREMENT PRIMARY KEY,
-    nome VARCHAR(100) NOT NULL,
-    email VARCHAR(225) NOT NULL UNIQUE,
-    idade INT NOT NULL,
-    telefone VARCHAR(20) NOT NULL UNIQUE,
-    sobre TEXT,
-    senha_hash CHAR(64) NOT NULL,
-    tipo ENUM('admin', 'usuario') NOT NULL DEFAULT 'usuario'
+CREATE TABLE BonsFluidos.Usuarios(
+	Login CHAR(11),
+    HashSenha CHAR(64),
+    Cookies VARCHAR(64) NULL,
+    PRIMARY KEY (Login)
 );
 
-CREATE TABLE noticia (
-    id INT AUTO_INCREMENT PRIMARY KEY,
-    titulo VARCHAR(200) NOT NULL,
-    imagem MEDIUMBLOB,
-    data_publicacao DATETIME NOT NULL,
-    status ENUM('rascunho', 'publicada', 'arquivada') NOT NULL DEFAULT 'rascunho',
-    text_noticia TEXT
+CREATE TABLE BonsFluidos.Posts(
+	ID_Post INT AUTO_INCREMENT,
+	Titulo VARCHAR(100),
+	Texto TEXT,
+	Foto MEDIUMBLOB,
+	PRIMARY KEY(ID_Post)
 );
 
-CREATE TABLE insc_notificacao (
-    id INT AUTO_INCREMENT PRIMARY KEY,
-    id_usuario INT NOT NULL,
-    FOREIGN KEY (id_usuario)
-        REFERENCES usuario (id),
-    tipo_notificacao VARCHAR(50) NOT NULL
+CREATE TABLE BonsFluidos.Comentarios(
+	ID_Comentario INT AUTO_INCREMENT,
+	ID_Post INT,
+	NomePessoa VARCHAR(40),
+	Comentario VARCHAR(255),
+	PRIMARY KEY (ID_Comentario),
+	FOREIGN KEY (ID_Post) REFERENCES BonsFluidos.Posts(ID_Post)
 );

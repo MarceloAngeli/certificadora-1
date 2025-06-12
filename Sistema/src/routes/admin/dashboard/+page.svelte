@@ -1,62 +1,51 @@
-<script>
-    // @ts-nocheck    
-    // Dummy data is now defined directly inside the component for easy testing.
-    let posts = $state([
-        {
-            ID_Post: 1,
-            Title: 'Nossa Missão: Combatendo a Pobreza Menstrual',
-            Text: 'A pobreza menstrual é uma realidade que afeta milhões de meninas e mulheres, prejudicando sua saúde, educação e dignidade. Nosso projeto busca arrecadar e distribuir produtos de higiene, além de promover palestras educativas para quebrar tabus e garantir um ciclo menstrual com mais respeito e informação.',
-            comments: [
-                { ID_Comment: 101, Name: 'Ana Clara', Comment: 'Iniciativa incrível! Como posso ajudar?' },
-                { ID_Comment: 102, Name: 'Mariana P.', Comment: 'Parabéns a toda a equipe. Vocês fazem a diferença!' }
-            ]
-        },
-        {
-            ID_Post: 2,
-            Title: 'Por que ser um Voluntário?',
-            Text: 'Ser voluntário no projeto Bons Fluidos é uma oportunidade de impactar diretamente a vida de jovens em nossa comunidade. Desde a organização de kits de higiene até a participação em eventos de conscientização, cada ajuda é fundamental para levarmos dignidade para mais pessoas.',
-            comments: [
-                { ID_Comment: 201, Name: 'Beatriz L.', Comment: 'Acabei de me cadastrar! Muito animada para começar.' },
-                { ID_Comment: 202, Name: 'Carlos Silva', Comment: 'É gratificante ver a mudança que causamos.' },
-                { ID_Comment: 203, Name: 'Julia F.', Comment: 'Recomendo a todos que participem.' }
-            ]
-        },
-        {
-            ID_Post: 3,
-            Title: 'Palestras Educativas nas Escolas',
-            Text: 'A informação é uma ferramenta poderosa. Nossas palestras nas escolas públicas de Cornélio Procópio abordam a saúde menstrual de forma aberta e sem preconceitos, tirando dúvidas e ensinando sobre o corpo e o ciclo menstrual. O conhecimento empodera e transforma!',
-            comments: [] // This post has no comments to test the conditional rendering
-        }
-    ]);
+<script lang="ts">
+
+    interface Comment {
+        ID_Comment: number;
+        Name: string;
+        Comment: string;
+    }
     
-    /**
-     * Handles the deletion of a post.
-     * @param {number} ID_Post - The ID of the post to delete.
-     * @param {number} postIndex - The index of the post in the array.
-     */
-    async function handleDeletePost(ID_Post, postIndex) {
+    interface Post {
+        ID_Post: number;
+        Title: string;
+        Text: string;
+        comments?: Comment[]; 
+    }
+    
+    interface Props {
+        data: {
+            post: Post[];
+        }
+    }
+    
+    let { data }: Props = $props();
+    let { post } = $state(data);
+    let posts: Post[] = $state(post); // Explicitly type the posts state
+    
+
+    async function handleDeletePost(ID_Post: number, postIndex: number) {
         console.log(`Simulating deletion of post with ID: ${ID_Post}`);
         // In a real app, you would make an API call here.
         // For this demo, we just update the local state.
         posts.splice(postIndex, 1);
-        posts = [...posts];
+        // posts = [...posts]; // Svelte 5 runes don't require reassignment for reactivity
         alert(`Post ${ID_Post} deletado (simulação).`);
     }
     
-    /**
-     * Handles the deletion of a comment.
-     * @param {number} ID_Comment - The ID of the comment to delete.
-     * @param {number} postIndex - The index of the parent post.
-     * @param {number} commentIndex - The index of the comment in the post's comments array.
-     */
-    async function handleDeleteComment(ID_Comment, postIndex, commentIndex) {
+
+    async function handleDeleteComment(ID_Comment: number, postIndex: number, commentIndex: number) {
         console.log(`Simulating deletion of comment with ID: ${ID_Comment}`);
-        // Update the local state for the demo.
-        posts[postIndex].comments.splice(commentIndex, 1);
-        posts = [...posts];
-        alert(`Comentário ${ID_Comment} deletado (simulação).`);
+        // Ensure the post and its comments exist before trying to modify
+        const targetPost = posts[postIndex];
+        if (targetPost && targetPost.comments) {
+            // Update the local state for the demo.
+            targetPost.comments.splice(commentIndex, 1);
+            // posts = [...posts]; // Not necessary with runes
+            alert(`Comentário ${ID_Comment} deletado (simulação).`);
+        }
     }
-    </script>
+</script>
     
     <div class="p-8 bg-rose-50 font-sans min-h-screen">
         <h1 class="text-3xl font-bold text-center text-red-500 mb-8">Gerenciamento de Posts</h1>
@@ -87,7 +76,8 @@
             <div class="px-6 pb-6">
                 <h3 class="text-lg font-bold text-gray-800 mb-4 pt-4 border-t border-dashed border-rose-100">Comentários</h3>
                 
-                <div class="space-y-2"> <div class="grid grid-cols-[200px_1fr_100px] items-center gap-4 p-3 rounded font-bold text-gray-800 bg-rose-100">
+                <div class="space-y-2">
+                    <div class="grid grid-cols-[200px_1fr_100px] items-center gap-4 p-3 rounded font-bold text-gray-800 bg-rose-100">
                         <div>Nome</div>
                         <div>Comentário</div>
                         <div class="text-center">Ação</div>

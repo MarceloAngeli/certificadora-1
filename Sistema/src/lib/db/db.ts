@@ -6,15 +6,15 @@ const pool = mariadb.createPool({
     database: 'BonsFluidos',
     connectionLimit: 5
 });
-export async function queryTeste(query: string) {
+export async function query(query: string, values: any[]) {
   let conn;
   try {
-	conn = await pool.getConnection();
-	const result = await conn.query(query);
-  return result;
+    conn = await pool.getConnection();
+    const result = await conn.query(query, values);
+    return result;
   } catch (err) {
-	throw err;
+    throw err;
   } finally {
-	if (conn) conn.end();
+    if (conn) conn.end();
   }
 }

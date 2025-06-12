@@ -3,7 +3,7 @@ import { queryTeste } from '$lib/db/db';
 
 export const load: PageServerLoad = async ({ params }) => {
 
-	let data = await queryTeste(`SELECT
+	let data = await query(`SELECT
 		p.ID_Post,
 		p.Titulo AS Title,
 		p.Texto AS Text,

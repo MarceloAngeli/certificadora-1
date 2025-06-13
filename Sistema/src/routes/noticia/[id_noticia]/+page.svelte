@@ -13,7 +13,7 @@
 	import NavBar from '$lib/NavBar.svelte';
 	import Comments from '$lib/post_page/Comments.svelte';
 	import Post from '$lib/post_page/Post.svelte';
-	import ArchiveSection from '$lib/noticia/ArchiveSection.svelte';
+	import ArchiveSection from '$lib/post_page/ArchiveSection.svelte';
 
 	// This variable will hold the reference to the swiper-container element
 	let swiperEl: HTMLElement & { initialize: () => void; swiper: any };

@@ -57,24 +57,5 @@
 			</div>
 		</div>
         {/each}
-
-		<div class="flex items-start space-x-4">
-			<img
-				src="https://placehold.co/48x48/8C2B2B/FFF9F9?text=B"
-				alt="Avatar do comentarista"
-				class="w-12 h-12 rounded-full flex-shrink-0"
-			/>
-			<div class="flex-1">
-				<div class="bg-white/50 p-4 rounded-lg border border-[#b91102] rounded-[10px]">
-					<p>
-						Muito informativo. Não tinha ideia da dimensão desse problema. Obrigado por
-						compartilhar!
-					</p>
-				</div>
-				<div class="mt-1 text-sm text-gray-500">
-					<span class="font-semibold text-[#b91102]">Beltrano</span> &middot; 5 horas atrás
-				</div>
-			</div>
-		</div>
 	</div>
 </section>

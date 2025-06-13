@@ -2,7 +2,7 @@
 	<h2 class="font-poppins text-3xl font-bold text-[#b91102] mb-8">Comentários</h2>
 	<div class="mb-12 bg-white/50 p-6 rounded-lg border border-[#b91102] rounded-[10px]">
 		<h3 class="font-poppins text-xl text-[#b91102] mb-4">Deixe um comentário</h3>
-		<form>
+		<form method="POST">
 			<div class="mb-4">
 				<label for="comment" class="block text-sm font-medium text-[#e82210] mb-1"
 					>Seu comentário</label

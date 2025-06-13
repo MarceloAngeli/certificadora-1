@@ -7,7 +7,7 @@
     }
     
     interface Post {
-        ID_Post: number;
+        ID_POST: number;
         Title: string;
         Text: string;
         comments?: Comment[]; 
@@ -20,29 +20,34 @@
     }
     
     let { data }: Props = $props();
-    let { post } = $state(data);
-    let posts: Post[] = $state(post); // Explicitly type the posts state
-    
+    let posts: Post[] = $state(data.post || []);
 
-    async function handleDeletePost(ID_Post: number, postIndex: number) {
-        console.log(`Simulating deletion of post with ID: ${ID_Post}`);
-        // In a real app, you would make an API call here.
-        // For this demo, we just update the local state.
+    async function handleDeletePost(ID_POST: number, postIndex: number) {
+        const response = await fetch('/admin/api/delete_post', {
+            method: "DELETE",
+            body: JSON.stringify({
+                ID_POST
+            }),
+            headers: { 'Content-Type': 'application/json' }
+        });
         posts.splice(postIndex, 1);
-        // posts = [...posts]; // Svelte 5 runes don't require reassignment for reactivity
-        alert(`Post ${ID_Post} deletado (simulação).`);
     }
     
 
-    async function handleDeleteComment(ID_Comment: number, postIndex: number, commentIndex: number) {
-        console.log(`Simulating deletion of comment with ID: ${ID_Comment}`);
-        // Ensure the post and its comments exist before trying to modify
+    async function handleDeleteComment(ID_Comment: number, ID_POST: number,  postIndex: number, commentIndex: number) {
+        
+        const response = await fetch('/admin/api/delete_comment', {
+            method: "DELETE",
+            body: JSON.stringify({
+                ID_POST,
+                ID_COMMENT:ID_Comment,
+            }),
+            headers: { 'Content-Type': 'application/json' }
+        });
+
         const targetPost = posts[postIndex];
         if (targetPost && targetPost.comments) {
-            // Update the local state for the demo.
             targetPost.comments.splice(commentIndex, 1);
-            // posts = [...posts]; // Not necessary with runes
-            alert(`Comentário ${ID_Comment} deletado (simulação).`);
         }
     }
 </script>
@@ -54,12 +59,12 @@
         <div class="bg-white border-2 border-rose-100 rounded-lg shadow-md mb-8 overflow-hidden">
             
             <div class="grid grid-cols-[auto_1fr_auto] items-center gap-4 p-4 bg-rose-50 border-b-2 border-rose-100">
-                <div class="font-bold text-red-500 bg-rose-100 p-2 rounded">ID: {post.ID_Post}</div>
+                <div class="font-bold text-red-500 bg-rose-100 p-2 rounded">ID: {post.ID_POST}</div>
                 <div class="text-xl font-semibold text-gray-800">{post.Title}</div>
                 
                 <button
                     class="group flex items-center justify-center p-1 rounded-full transition-colors hover:bg-rose-100"
-                    onclick={() => handleDeletePost(post.ID_Post, i)}
+                    onclick={() => handleDeletePost(post.ID_POST, i)}
                     aria-label="Delete Post"
                 >
                     <svg class="fill-gray-500 transition-colors group-hover:fill-red-500" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
@@ -90,7 +95,7 @@
                         <div class="text-center">
                             <button
                                 class="group flex items-center justify-center p-1 rounded-full transition-colors hover:bg-rose-100 mx-auto"
-                                onclick={() => handleDeleteComment(comment.ID_Comment, i, j)}
+                                onclick={() => handleDeleteComment(comment.ID_Comment, post.ID_POST, i, j)}
                                 aria-label="Delete Comment"
                             >
                                 <svg class="fill-gray-500 transition-colors group-hover:fill-red-500" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24">

@@ -8,8 +8,6 @@
         imageAlt = 'Imagem do post'
 	}: { title: string; author: string; date: string; content: string; imageUrl: string | null; imageAlt: string } = $props();
 
-	console.log(date);
-
 	function formatDate(isoString: string): string {
 	const date: Date = new Date(isoString);
 

@@ -1,6 +1,5 @@
 <script lang="ts">
     let {comments} = $props();
-    console.log(comments);
 </script>
 
 <section class="mt-16 prose prose-base">

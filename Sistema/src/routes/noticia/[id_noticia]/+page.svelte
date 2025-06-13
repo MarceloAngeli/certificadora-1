@@ -7,7 +7,7 @@
 	register();
 
 	let { data }: PageProps = $props();
-	let {comments} = data;
+	console.log(data)
 
 	// Import other components
 	import FooterSection from '$lib/FooterSection.svelte';

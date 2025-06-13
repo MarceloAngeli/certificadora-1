@@ -2,20 +2,28 @@ import type { PageLoad } from './$types';
 import type { Actions } from './$types';
 import { query } from '$lib/db/db';
 
+
+
 export const load: PageLoad = async ({ params }) => {
         let comments = await query(
                 `SELECT NomePessoa, Data, Comentario FROM Comentarios WHERE ID_Post = ?;`, 
                 [params.id_noticia] 
         );
+
+        let data = await query(
+                `SELECT ID_POST, TITULO, TEXTO, FOTO, DATA FROM Posts WHERE ID_POST=?`, 
+                [Number(params.id_noticia)]
+        );
+        let noticia = data[0];
 	return {
-        id: params.id_noticia,
-        title: `Notícia com id ${params.id_noticia}`,
-        content: `Este é o conteúdo da notícia com ID ${params.id_noticia}.\nEsta notícia é um exemplo fictício para demonstração.\nEm algum momento, você poderá substituir este conteúdo por informações reais.`,
-        date: '2025-06-11',
-        image: null,
-        imageAlt: 'Descrição da imagem da notícia',
-        author: "Fulano de Tal",
-        comments
+                id: noticia.ID_POST,
+                title: noticia.TITULO,
+                content: noticia.TEXTO,
+                date: noticia.DATA,
+                image: null, //TODO: IMAGEM.... '-'
+                imageAlt: 'Descrição da imagem da notícia',
+                author: "Fulano de Tal",
+                comments
 	};
 };
 

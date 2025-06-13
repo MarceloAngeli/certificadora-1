@@ -7,6 +7,18 @@
 		imageUrl = '/imagens/artigo_default.png',
         imageAlt = 'Imagem do post'
 	}: { title: string; author: string; date: string; content: string; imageUrl: string | null; imageAlt: string } = $props();
+
+	console.log(date);
+
+	function formatDate(isoString: string): string {
+	const date: Date = new Date(isoString);
+
+	const day: string = String(date.getUTCDate()).padStart(2, '0');
+	const month: string = String(date.getUTCMonth() + 1).padStart(2, '0'); // +1 because months are 0-indexed
+	const year: number = date.getUTCFullYear();
+
+	return `${day}/${month}/${year}`;
+	}
 </script>
 
 <article>
@@ -23,8 +35,8 @@
 			<div>
 				<span>Por <a href="#top" class="font-semibold text-brand-primary">{author}</a></span>
 				<span class="mx-2">&middot;</span>
-				<span>{date}</span>
-			</div>
+				<span>{formatDate(date)}</span>
+				`</div>
 		</div>
 	</header>
 

@@ -7,6 +7,7 @@
 	register();
 
 	let { data }: PageProps = $props();
+	let {comments} = data;
 
 	// Import other components
 	import FooterSection from '$lib/FooterSection.svelte';
@@ -165,7 +166,7 @@
 				]}
 			/>
 
-			<Comments />
+			<Comments comments={data.comments}/>
 		</main>
 	</div>
 </div>

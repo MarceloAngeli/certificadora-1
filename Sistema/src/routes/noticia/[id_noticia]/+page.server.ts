@@ -2,7 +2,11 @@ import type { PageLoad } from './$types';
 import type { Actions } from './$types';
 import { query } from '$lib/db/db';
 
-export const load: PageLoad = ({ params }) => {
+export const load: PageLoad = async ({ params }) => {
+        let comments = await query(
+                `SELECT NomePessoa, Data, Comentario FROM Comentarios WHERE ID_Post = ?;`, 
+                [params.id_noticia] 
+        );
 	return {
         id: params.id_noticia,
         title: `Notícia com id ${params.id_noticia}`,
@@ -11,6 +15,7 @@ export const load: PageLoad = ({ params }) => {
         image: null,
         imageAlt: 'Descrição da imagem da notícia',
         author: "Fulano de Tal",
+        comments
 	};
 };
 

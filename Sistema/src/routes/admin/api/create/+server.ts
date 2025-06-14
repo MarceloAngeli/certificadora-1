@@ -17,7 +17,7 @@ export async function POST({ request }) {
     const imageBuffer = Buffer.from(await imagem.arrayBuffer());
 
     try {
-        await query(`INSERT INTO Posts (Titulo, Texto, Foto, Data) VALUES (?, ?, ?, ?)`, [title, body, imageBuffer, "2025-12-10"]);
+        await query(`INSERT INTO Posts (Titulo, Texto, Foto, Data) VALUES (?, ?, ?, ?)`, [title, body, imageBuffer, new Date().toISOString().slice(0, 10)]);
     } catch (e) {
         console.log(e);
         return json({ message: "Erro ao salvar no banco de dados." }, { status: 500 });

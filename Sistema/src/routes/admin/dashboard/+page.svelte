@@ -53,8 +53,15 @@
 </script>
     
     <div class="p-8 bg-rose-50 font-sans min-h-screen">
-        <h1 class="text-3xl font-bold text-center text-red-500 mb-8">Gerenciamento de Posts</h1>
-    
+        <h1 class="text-3xl font-bold text-center text-red-500 mb-6">Gerenciamento de Posts</h1>
+
+        <div class="text-center mb-10">
+            <a href="/admin/dashboard/create" 
+               class="inline-block text-white font-bold py-2 px-6 rounded-lg shadow-md hover:shadow-xl transition-all duration-300"
+               style="background-color: #e82210;">
+                &#43; Criar Novo Post
+            </a>
+        </div>
         {#each posts as post, i}
         <div class="bg-white border-2 border-rose-100 rounded-lg shadow-md mb-8 overflow-hidden">
             

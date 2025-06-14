@@ -1,5 +1,3 @@
-// src/routes/admin/api/create/+server.js
-
 import { query } from '$lib/db/db.js';
 import { json } from "@sveltejs/kit";
 

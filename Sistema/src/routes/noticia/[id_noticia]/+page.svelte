@@ -7,7 +7,7 @@
 	register();
 
 	let { data }: PageProps = $props();
-	console.log(data)
+	console.log(data);
 
 	// Import other components
 	import FooterSection from '$lib/FooterSection.svelte';
@@ -53,7 +53,6 @@
 	let postContent: string = data.content;
 	let postImageUrl: string | null = data.image ?? null; // Allow `postImageUrl` to be nullable
 	let postImageAlt: string = data.imageAlt ?? 'Imagem do post'; // Default alt text if not provided
-	let postAuthor: string = data.author ?? 'Autor Desconhecido'; // Default author if not provided
 </script>
 
 <div class="max-w-screen-xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -66,7 +65,6 @@
 				date={postDate}
 				content={postContent}
 				imageUrl={postImageUrl}
-				author={data.author}
 				imageAlt={postImageAlt}
 			/>
 

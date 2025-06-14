@@ -2,12 +2,12 @@
 	import { formatDate } from "./formatdate";
 	let {
 		title,
-        author,
 		date,
 		content,
-		imageUrl = '/imagens/artigo_default.png',
+		imageUrl,
         imageAlt = 'Imagem do post'
-	}: { title: string; author: string; date: string; content: string; imageUrl: string | null; imageAlt: string } = $props();
+	}: { title: string; date: string; content: string; imageUrl: string | null; imageAlt: string } = $props();
+	
 
 </script>
 
@@ -18,12 +18,12 @@
 		</h1>
 		<div class="flex items-center text-sm text-gray-500">
 			<img
-				src="https://placehold.co/40x40/E85A4F/FFF9F9?text=A"
+				src="https://placehold.co/40x40/E85A4F/FFF9F9?text=BF"
 				alt="Avatar do autor"
 				class="w-10 h-10 rounded-full mr-3"
 			/>
 			<div>
-				<span>Por <a href="#top" class="font-semibold text-brand-primary">{author}</a></span>
+				<span>Por <a href="#top" class="font-semibold text-brand-primary">Bons Fluidos</a></span>
 				<span class="mx-2">&middot;</span>
 				<span>{formatDate(date)}</span>
 				`</div>

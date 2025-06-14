@@ -5,8 +5,7 @@
 		date,
 		content,
 		imageUrl,
-        imageAlt = 'Imagem do post'
-	}: { title: string; date: string; content: string; imageUrl: string | null; imageAlt: string } = $props();
+	}: { title: string; date: string; content: string; imageUrl: string | null;} = $props();
 	
 
 </script>
@@ -33,7 +32,7 @@
 	<figure class="mb-8">
 		<img
 			src={imageUrl}
-			alt={imageAlt}
+			alt={`Imagem do post ${title}`}
 			class="w-full h-auto rounded-lg shadow-md"
 		/>
 	</figure>

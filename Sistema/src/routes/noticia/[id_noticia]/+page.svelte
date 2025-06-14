@@ -15,11 +15,10 @@
 	import Comments from '$lib/post_page/Comments.svelte';
 	import Post from '$lib/post_page/Post.svelte';
 	import ArchiveSection from '$lib/post_page/ArchiveSection.svelte';
+	import { formatDate } from '$lib/post_page/formatdate';
 
-	// This variable will hold the reference to the swiper-container element
 	let swiperEl: HTMLElement & { initialize: () => void; swiper: any };
 
-	// Configure Swiper after the component has been mounted to the DOM
 	onMount(() => {
 		const swiperParams = {
 			slidesPerView: 1,
@@ -28,7 +27,7 @@
 			pagination: {
 				clickable: true
 			},
-			navigation: true, // Swiper will use the elements with the default classes
+			navigation: true, 
 			breakpoints: {
 				768: {
 					slidesPerView: 2,
@@ -41,18 +40,21 @@
 			}
 		};
 
-		// Assign the parameters to the Swiper container element
 		Object.assign(swiperEl, swiperParams);
-
-		// Initialize Swiper
 		swiperEl.initialize();
 	});
 
+	interface Post{
+		ID_POST: number,
+		TITULO: string,
+		FOTO: string | null,
+		DATA: string,
+	}
+	let carrossel: Post[] = data.carrossel;
 	let postTitle: string = data.title;
 	let postDate: string = data.date;
 	let postContent: string = data.content;
-	let postImageUrl: string | null = data.image ?? null; // Allow `postImageUrl` to be nullable
-	let postImageAlt: string = data.imageAlt ?? 'Imagem do post'; // Default alt text if not provided
+	let postImageUrl: string | null = data.image ?? null;
 </script>
 
 <div class="max-w-screen-xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -65,86 +67,33 @@
 				date={postDate}
 				content={postContent}
 				imageUrl={postImageUrl}
-				imageAlt={postImageAlt}
-			/>
+				/>
 
 			<section class="mt-16">
 				<h2 class="font-heading text-3xl font-bold text-brand-heading mb-8">Novos Posts</h2>
 
 				<swiper-container bind:this={swiperEl} init="false" class="mySwiper">
+					{#each carrossel as post }
 					<swiper-slide>
 						<a
-							href="#top"
+							data-sveltekit-reload
+							href={`/noticia/${post.ID_POST}`}
 							class="block group bg-white/60 p-4 rounded-lg border border-red-100 h-full"
-						>
+							>
 							<img
-								src="https://placehold.co/400x300/FEC5BB/442121?text=Post+1"
-								alt="Thumbnail do Post 1"
-								class="w-full h-40 object-cover rounded-md mb-4 group-hover:opacity-90 transition-opacity"
+							src={post.FOTO}
+							alt={`Imagem post ${post.TITULO}`}
+							class="w-full h-40 object-cover rounded-md mb-4 group-hover:opacity-90 transition-opacity"
 							/>
 							<h4
-								class="font-heading text-lg font-semibold text-brand-heading group-hover:text-brand-primary transition-colors"
+							class="font-heading text-lg font-semibold text-brand-heading group-hover:text-brand-primary transition-colors"
 							>
-								Um Guia Sobre Saúde Menstrual
+							{post.TITULO}
 							</h4>
-							<p class="text-sm text-gray-600 mt-1">10 de Junho, 2025</p>
+							<p class="text-sm text-gray-600 mt-1">{formatDate(post.DATA)}</p>
 						</a>
 					</swiper-slide>
-					<swiper-slide>
-						<a
-							href="#top"
-							class="block group bg-white/60 p-4 rounded-lg border border-red-100 h-full"
-						>
-							<img
-								src="https://placehold.co/400x300/FCD5CE/442121?text=Post+2"
-								alt="Thumbnail do Post 2"
-								class="w-full h-40 object-cover rounded-md mb-4 group-hover:opacity-90 transition-opacity"
-							/>
-							<h4
-								class="font-heading text-lg font-semibold text-brand-heading group-hover:text-brand-primary transition-colors"
-							>
-								Nossa Última Campanha de Arrecadação
-							</h4>
-							<p class="text-sm text-gray-600 mt-1">05 de Junho, 2025</p>
-						</a>
-					</swiper-slide>
-					<swiper-slide>
-						<a
-							href="#top"
-							class="block group bg-white/60 p-4 rounded-lg border border-red-100 h-full"
-						>
-							<img
-								src="https://placehold.co/400x300/FEC5BB/442121?text=Post+3"
-								alt="Thumbnail do Post 3"
-								class="w-full h-40 object-cover rounded-md mb-4 group-hover:opacity-90 transition-opacity"
-							/>
-							<h4
-								class="font-heading text-lg font-semibold text-brand-heading group-hover:text-brand-primary transition-colors"
-							>
-								Como o Voluntariado Transforma Vidas
-							</h4>
-							<p class="text-sm text-gray-600 mt-1">01 de Junho, 2025</p>
-						</a>
-					</swiper-slide>
-					<swiper-slide>
-						<a
-							href="#top"
-							class="block group bg-white/60 p-4 rounded-lg border border-red-100 h-full"
-						>
-							<img
-								src="https://placehold.co/400x300/FCD5CE/442121?text=Post+4"
-								alt="Thumbnail do Post 4"
-								class="w-full h-40 object-cover rounded-md mb-4 group-hover:opacity-90 transition-opacity"
-							/>
-							<h4
-								class="font-heading text-lg font-semibold text-brand-heading group-hover:text-brand-primary transition-colors"
-							>
-								Entrevista com a Dra. Kátia Romero
-							</h4>
-							<p class="text-sm text-gray-600 mt-1">28 de Maio, 2025</p>
-						</a>
-					</swiper-slide>
-
+					{/each}
 					<div class="swiper-pagination"></div>
 					<div class="swiper-button-next"></div>
 					<div class="swiper-button-prev"></div>

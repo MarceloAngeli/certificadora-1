@@ -1,31 +1,39 @@
 <script lang="ts">
-    let title: string = '';
-    let image: FileList;
-    let body: string = '';
-    let imageName = '';
+  let title: string = '';
+  let image: FileList | null = null;
+  let body: string = '';
+  let imageName = '';
 
-    async function handlePost(){
-      if(title.trim().length == 0 || body.trim().length == 0){
+async function handlePost() {
+    if (title.trim().length === 0 || body.trim().length === 0) {
+        alert("Título e conteúdo são obrigatórios.");
         return;
-      }
-
-      const formData = new FormData();
-      formData.append("title", title);
-      formData.append("body", body);
-      formData.append("imagem", image[0])
-
-      const response = await fetch('/admin/api/create', {
-            method: "POST",
-            body: formData
-          }
-      );
-
-      if(response.status == 400){
-        alert("Erro durante o processo de salvar a imagem. Tente novamente ou contate o administrador.")
-      }
     }
+
+    if (!image || image.length === 0) { 
+        alert("Adicione uma imagem.");
+        return;
+    }
+
+    const formData = new FormData();
+    formData.append("title", title);
+    formData.append("body", body);
+    formData.append("imagem", image[0]);
+
+    const response = await fetch('/admin/api/create', {
+        method: "POST",
+        body: formData
+    });
+
+    if (response.ok) {
+        window.location.replace("/admin/dashboard");
+    } else {
+        const error = await response.json();
+        alert(`Erro ao salvar postagem: ${error.message || 'Tente novamente.'}`);
+    }
+}
   
-  </script>
+</script>
   
   <div class="min-h-screen px-8 py-12 sm:px-16 md:px-32">
     <div class="max-w-4xl mx-auto">

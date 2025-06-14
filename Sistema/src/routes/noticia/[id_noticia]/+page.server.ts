@@ -22,7 +22,7 @@ export const load: PageLoad = async ({ params }) => {
                 date: noticia.DATA,
                 image: null, //TODO: IMAGEM.... '-'
                 imageAlt: 'Descrição da imagem da notícia',
-                author: "Fulano de Tal",
+                author: "BonsFluidos",
                 comments
 	};
 };
@@ -40,7 +40,6 @@ export const actions = {
                 const day = String(today.getDate()).padStart(2, '0');
                 const formattedDate = `${year}-${month}-${day}`;
 
-                console.log([params.id_noticia, name, comment, formattedDate ]);
                 try{
                         let comentarios = await query( `INSERT INTO Comentarios (ID_POST, NomePessoa, Comentario, Data)
                         VALUES (?, ?, ?, ?);

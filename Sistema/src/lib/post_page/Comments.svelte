@@ -1,3 +1,7 @@
+<script lang="ts">
+    let {comments} = $props();
+</script>
+
 <section class="mt-16 prose prose-base">
 	<h2 class="font-poppins text-3xl font-bold text-[#b91102] mb-8">Comentários</h2>
 	<div class="mb-12 bg-white/50 p-6 rounded-lg border border-[#b91102] rounded-[10px]">
@@ -8,7 +12,7 @@
 					>Seu comentário</label
 				><textarea
 					id="comment"
-					name="comment"
+			    		name="comment"
 					rows="4"
 					class="w-full p-3 border border-[#b91102] rounded-[10px] focus:ring-[#b91102] focus:border-[#b91102] transition"
 					placeholder="Escreva sua opinião..."
@@ -31,42 +35,26 @@
 			>
 		</form>
 	</div>
+    
 	<div class="space-y-8">
-		<div class="flex items-start space-x-4">
+        {#each comments as comment }
+        <div class="flex items-start space-x-4">
 			<img
-				src="https://placehold.co/48x48/8C2B2B/FFF9F9?text=C"
+				src="https://placehold.co/48x48/8C2B2B/FFF9F9?text={Array.from(comment.NomePessoa)[0]}"
 				alt="Avatar do comentarista"
 				class="w-12 h-12 rounded-full flex-shrink-0"
 			/>
 			<div class="flex-1">
 				<div class="bg-white/50 p-4 rounded-lg border border-[#b91102] rounded-[10px]">
 					<p>
-						Ótimo artigo! A conscientização sobre a pobreza menstrual é fundamental. Parabéns pelo
-						trabalho incrível que vocês fazem.
+						{comment.Comentario}
 					</p>
 				</div>
 				<div class="mt-1 text-sm text-gray-500">
-					<span class="font-semibold text-[#b91102]">Ciclana</span> &middot; 2 horas atrás
+					<span class="font-semibold text-[#b91102]">{comment.NomePessoa}</span> &middot; 2 horas atrás
 				</div>
 			</div>
 		</div>
-		<div class="flex items-start space-x-4">
-			<img
-				src="https://placehold.co/48x48/8C2B2B/FFF9F9?text=B"
-				alt="Avatar do comentarista"
-				class="w-12 h-12 rounded-full flex-shrink-0"
-			/>
-			<div class="flex-1">
-				<div class="bg-white/50 p-4 rounded-lg border border-[#b91102] rounded-[10px]">
-					<p>
-						Muito informativo. Não tinha ideia da dimensão desse problema. Obrigado por
-						compartilhar!
-					</p>
-				</div>
-				<div class="mt-1 text-sm text-gray-500">
-					<span class="font-semibold text-[#b91102]">Beltrano</span> &middot; 5 horas atrás
-				</div>
-			</div>
-		</div>
+        {/each}
 	</div>
 </section>

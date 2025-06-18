@@ -1,11 +1,14 @@
 <script>
-    // This line is from your original code. It's used to check for authentication errors.
     import { page } from '$app/stores';
+    import { enhance } from '$app/forms';
+    let { data } = $props();
   </script>
   
   <div class="w-full bg-[#FFF] min-h-screen flex items-center justify-center p-4 font-sans">
     <form
       method="POST"
+      action="?/login"
+      use:enhance
       class="bg-white p-8 rounded-2xl border border-[#FADADD] shadow-lg
              w-full max-w-md flex flex-col space-y-6"
     >

@@ -14,8 +14,7 @@
 	import NavBar from '$lib/NavBar.svelte';
 	import Comments from '$lib/post_page/Comments.svelte';
 	import Post from '$lib/post_page/Post.svelte';
-	import ArchiveSection from '$lib/post_page/ArchiveSection.svelte';
-	import { formatDate } from '$lib/post_page/formatdate';
+	import RecentPosts from '$lib/RecentPosts.svelte';
 
 	let swiperEl: HTMLElement & { initialize: () => void; swiper: any };
 
@@ -69,49 +68,7 @@
 				imageUrl={postImageUrl}
 				/>
 
-			<section class="mt-16">
-				<h2 class="font-heading text-3xl font-bold text-brand-heading mb-8">Novos Posts</h2>
-
-				<swiper-container bind:this={swiperEl} init="false" class="mySwiper">
-					{#each carrossel as post }
-					<swiper-slide>
-						<a
-							data-sveltekit-reload
-							href={`/noticia/${post.ID_POST}`}
-							class="block group bg-white/60 p-4 rounded-lg border border-red-100 h-full"
-							>
-							<img
-							src={post.FOTO}
-							alt={`Imagem post ${post.TITULO}`}
-							class="w-full h-40 object-cover rounded-md mb-4 group-hover:opacity-90 transition-opacity"
-							/>
-							<h4
-							class="font-heading text-lg font-semibold text-brand-heading group-hover:text-brand-primary transition-colors"
-							>
-							{post.TITULO}
-							</h4>
-							<p class="text-sm text-gray-600 mt-1">{formatDate(post.DATA)}</p>
-						</a>
-					</swiper-slide>
-					{/each}
-					<div class="swiper-pagination"></div>
-					<div class="swiper-button-next"></div>
-					<div class="swiper-button-prev"></div>
-				</swiper-container>
-			</section>
-
-			<ArchiveSection
-				months={[
-					'Junho 2025',
-					'Maio 2025',
-					'Abril 2025',
-					'Março 2025',
-					'Fevereiro 2025',
-					'Janeiro 2025',
-					'Dezembro 2024',
-					'Novembro 2024'
-				]}
-			/>
+			<RecentPosts carrossel={carrossel} />
 
 			<Comments comments={data.comments}/>
 		</main>
@@ -120,24 +77,3 @@
 
 <FooterSection />
 
-<style>
-	swiper-container {
-		--swiper-theme-color: #e85a4f;
-	}
-
-	swiper-container {
-		position: relative;
-		overflow: hidden;
-		padding-bottom: 40px;
-	}
-
-	.swiper-pagination {
-		position: absolute;
-		bottom: 10px;
-	}
-
-	swiper-slide {
-		border: 1px solid #b91102;
-		border-radius: 10px;
-	}
-</style>

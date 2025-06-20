@@ -37,7 +37,6 @@ export const load = (async ({ url }) => {
 export const actions = {
     default: async ({ request }) => {
         const formData = await request.formData();
-        console.log("Form Data:", formData);
         const mes = formData.get('mes');
         const ano = formData.get('ano');
 

@@ -23,7 +23,6 @@ export const load: PageServerLoad = async ({ }) => {
     };
 
     let carrosselData = await getPostsRecentesData(Number(params.id_noticia));
-    console.log("Carrossel Data:", carrosselData);
 
     const carrossel = await Promise.all(carrosselData.map(async (post: any) => {
         return {
@@ -31,8 +30,6 @@ export const load: PageServerLoad = async ({ }) => {
             FOTO: await createImageURL(post.FOTO)
         };
     }));
-
-    console.log("Processed Carrossel Data:", carrossel);
 
     return {
         carrossel

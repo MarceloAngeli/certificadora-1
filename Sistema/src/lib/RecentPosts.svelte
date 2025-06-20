@@ -8,6 +8,8 @@
 	};
 
 	export let carrossel: Post[];
+	export let temTitulo: boolean = true;
+
 	let swiperEl: HTMLElement & { initialize: () => void; swiper: any };
 
 	import { onMount } from 'svelte';
@@ -37,11 +39,12 @@
 		Object.assign(swiperEl, swiperParams);
 		swiperEl.initialize();
 	});
-	console.log(carrossel);
 </script>
 
 <section class="mt-16">
-	<h2 class="font-heading text-3xl font-bold text-brand-heading mb-8">Novos Posts</h2>
+	{#if temTitulo}
+		<h2 class="font-heading text-3xl font-bold text-brand-heading mb-8">Novos Posts</h2>
+	{/if}
 
 	<swiper-container bind:this={swiperEl} init="false" class="mySwiper">
 		{#each carrossel as post}

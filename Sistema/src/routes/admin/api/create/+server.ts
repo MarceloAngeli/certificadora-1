@@ -8,7 +8,7 @@ export async function POST({ request }) {
     const imagem = data.get("imagem");
 
     if (!imagem || !(imagem instanceof File) || imagem.size === 0) {
-        console.log("Imagem inválida: não é um arquivo, nula, ou está vazia.");
+        console.error("Imagem inválida: não é um arquivo, nula, ou está vazia.");
         return json({ message: "Imagem é obrigatória." }, { status: 400 });
     }
 
@@ -17,7 +17,7 @@ export async function POST({ request }) {
     try {
         await query(`INSERT INTO Posts (Titulo, Texto, Foto, Data) VALUES (?, ?, ?, ?)`, [title, body, imageBuffer, new Date().toISOString().slice(0, 10)]);
     } catch (e) {
-        console.log(e);
+        console.error(e);
         return json({ message: "Erro ao salvar no banco de dados." }, { status: 500 });
     }
 

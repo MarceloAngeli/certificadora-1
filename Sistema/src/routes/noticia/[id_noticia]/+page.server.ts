@@ -71,7 +71,7 @@ export const actions = {
                         VALUES (?, ?, ?, ?);
                         `, [params.id_noticia, name, comment, formattedDate]);
         } catch (e) {
-            console.log(e);
+            console.error(e);
         }
 
     }

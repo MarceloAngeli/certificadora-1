@@ -8,8 +8,7 @@ export async function DELETE({request}){
     try{
         await query(`DELETE FROM BonsFluidos.Posts WHERE ID_Post=?`, [ID_POST])
     }catch(e){
-        console.log(e);
-        console.log("Erro ao deletar post");
+        console.error("Erro ao deletar post: ", e);
         return json({success: false});
     }
     return json({success: true});
